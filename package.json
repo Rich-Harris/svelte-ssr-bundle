@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "rollup": "^0.37.0",
+    "rollup-plugin-svelte": "^1.2.5"
+  },
+  "scripts": {
+    "start": "npm run build:server && npm run build:client && npm run serve",
+    "build:server": "rollup -c rollup.config.ssr.js",
+    "build:client": "rollup -c rollup.config.js",
+    "serve": "node server/index.js"
+  }
+}

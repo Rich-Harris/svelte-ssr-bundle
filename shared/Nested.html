@@ -1,0 +1,33 @@
+<div class='pagination'>
+	<p>this is a nested component</p>
+	{{#if page > 1}}
+		<a class='prev' href='/page/{{page - 1}}'>page {{page - 1}}</a>
+	{{/if}}
+
+	<a class='next' href='/page/{{page + 1}}'>page {{page + 1}}</a>
+</div>
+
+<style>
+	.pagination {
+		width: 12em;
+	}
+
+	a {
+		font-family: 'Helvetica Neue';
+		display: block;
+		text-color: #999;
+		text-decoration: none;
+	}
+
+	a:hover {
+		text-color: #333;
+	}
+
+	.prev {
+		float: left;
+	}
+
+	.next: {
+		float: right;
+	}
+</style>
