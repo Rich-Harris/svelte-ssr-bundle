@@ -1,21 +1,13 @@
 (function () {
 'use strict';
 
-let addedCss$1 = false;
-function addCss$1 () {
-	var style = document.createElement( 'style' );
-	style.textContent = "                                                                                                                                                                                                                                          \n\t.pagination[svelte-4193750705], [svelte-4193750705] .pagination {\n\t\twidth: 12em;\n\t}\n\n\ta[svelte-4193750705], [svelte-4193750705] a {\n\t\tfont-family: 'Helvetica Neue';\n\t\tdisplay: block;\n\t\ttext-color: #999;\n\t\ttext-decoration: none;\n\t}\n\n\ta[svelte-4193750705]:hover, [svelte-4193750705] a:hover {\n\t\ttext-color: #333;\n\t}\n\n\t.prev[svelte-4193750705], [svelte-4193750705] .prev {\n\t\tfloat: left;\n\t}\n\n\t.next[svelte-4193750705], [svelte-4193750705] .next {\n\t\tfloat: right;\n\t}\n";
-	document.head.appendChild( style );
-
-	addedCss$1 = true;
-}
-
 function renderMainFragment$1 ( root, component ) {
 	var div = document.createElement( 'div' );
-	div.setAttribute( 'svelte-4193750705', '' );
+	div.setAttribute( 'svelte-3548289220', '' );
 	div.className = "pagination";
 	
 	var p = document.createElement( 'p' );
+	p.setAttribute( 'svelte-3548289220', '' );
 	
 	div.appendChild( p );
 	p.appendChild( document.createTextNode( "this is a nested component" ) );
@@ -35,6 +27,7 @@ function renderMainFragment$1 ( root, component ) {
 	div.appendChild( document.createTextNode( "\n\n\t" ) );
 	
 	var a = document.createElement( 'a' );
+	a.setAttribute( 'svelte-3548289220', '' );
 	a.className = "next";
 	a.href = "/page/" + ( root.page + 1 );
 	
@@ -76,6 +69,7 @@ function renderMainFragment$1 ( root, component ) {
 
 function renderIfBlock_0$1 ( root, component ) {
 	var a = document.createElement( 'a' );
+	a.setAttribute( 'svelte-3548289220', '' );
 	a.className = "prev";
 	a.href = "/page/" + ( root.page - 1 );
 	
@@ -207,8 +201,6 @@ function Nested ( options ) {
 	this.root = options.root;
 	this.yield = options.yield;
 
-	if ( !addedCss$1 ) addCss$1();
-	
 	var mainFragment = renderMainFragment$1( state, this );
 	if ( options.target ) this._mount( options.target );
 }
@@ -217,7 +209,8 @@ var template = (function () {
 	return {
 		data () {
 			return {
-				query: '???'
+				query: '???',
+				loading: true
 			};
 		},
 
@@ -233,18 +226,9 @@ var template = (function () {
 	}
 }());
 
-let addedCss = false;
-function addCss () {
-	var style = document.createElement( 'style' );
-	style.textContent = "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                \n\th1[svelte-1089874807], [svelte-1089874807] h1 {\n\t\tfont-family: 'Helvetica Neue';\n\t\tfont-size: 2em;\n\t\tfont-weight: 200;\n\t}\n\n\tp[svelte-1089874807], [svelte-1089874807] p {\n\t\tmax-width: 40em;\n\t}\n";
-	document.head.appendChild( style );
-
-	addedCss = true;
-}
-
 function renderMainFragment ( root, component ) {
 	var h1 = document.createElement( 'h1' );
-	h1.setAttribute( 'svelte-1089874807', '' );
+	h1.setAttribute( 'svelte-3293511188', '' );
 	
 	h1.appendChild( document.createTextNode( "Page " ) );
 	var text1 = document.createTextNode( root.page );
@@ -252,16 +236,34 @@ function renderMainFragment ( root, component ) {
 	var text2 = document.createTextNode( "\n\n" );
 	
 	var p = document.createElement( 'p' );
-	p.setAttribute( 'svelte-1089874807', '' );
+	p.setAttribute( 'svelte-3293511188', '' );
 	
 	p.appendChild( document.createTextNode( "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." ) );
 	var text4 = document.createTextNode( "\n\n" );
 	
 	var p1 = document.createElement( 'p' );
-	p1.setAttribute( 'svelte-1089874807', '' );
+	p1.setAttribute( 'svelte-3293511188', '' );
 	
 	p1.appendChild( document.createTextNode( "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." ) );
 	var text6 = document.createTextNode( "\n\n" );
+	
+	var div = document.createElement( 'div' );
+	div.setAttribute( 'svelte-3293511188', '' );
+	div.className = "interactive";
+	
+	var ifBlock_anchor = document.createComment( "#if loading" );
+	div.appendChild( ifBlock_anchor );
+	
+	function getBlock ( root ) {
+		if ( root.loading ) return renderIfBlock_0;
+		return renderIfBlock_1;
+	}
+	
+	var currentBlock = getBlock( root );
+	var ifBlock = currentBlock && currentBlock( root, component );
+	
+	if ( ifBlock ) ifBlock.mount( ifBlock_anchor.parentNode, ifBlock_anchor );
+	var text7 = document.createTextNode( "\n\n" );
 	
 	var nested_initialData = {
 		page: root.page
@@ -271,17 +273,6 @@ function renderMainFragment ( root, component ) {
 		root: component.root || component,
 		data: nested_initialData
 	});
-	
-	var text7 = document.createTextNode( "\n\n" );
-	var ifBlock_anchor = document.createComment( "#if loading" );
-	
-	function getBlock ( root ) {
-		if ( root.loading ) return renderIfBlock_0;
-		return renderIfBlock_1;
-	}
-	
-	var currentBlock = getBlock( root );
-	var ifBlock = currentBlock && currentBlock( root, component );
 
 	return {
 		mount: function ( target, anchor ) {
@@ -291,20 +282,13 @@ function renderMainFragment ( root, component ) {
 			target.insertBefore( text4, anchor );
 			target.insertBefore( p1, anchor );
 			target.insertBefore( text6, anchor );
-			nested._mount( target, anchor );
+			target.insertBefore( div, anchor );
 			target.insertBefore( text7, anchor );
-			target.insertBefore( ifBlock_anchor, anchor );
-			if ( ifBlock ) ifBlock.mount( ifBlock_anchor.parentNode, ifBlock_anchor );
+			nested._mount( target, anchor );
 		},
 
 		update: function ( changed, root ) {
 			text1.data = root.page;
-			
-			var nested_changes = {};
-			
-			if ( 'page' in changed ) nested_changes.page = root.page;
-			
-			if ( Object.keys( nested_changes ).length ) nested.set( nested_changes );
 			
 			var _currentBlock = currentBlock;
 			currentBlock = getBlock( root );
@@ -315,11 +299,17 @@ function renderMainFragment ( root, component ) {
 				ifBlock = currentBlock && currentBlock( root, component );
 				if ( ifBlock ) ifBlock.mount( ifBlock_anchor.parentNode, ifBlock_anchor );
 			}
+			
+			var nested_changes = {};
+			
+			if ( 'page' in changed ) nested_changes.page = root.page;
+			
+			if ( Object.keys( nested_changes ).length ) nested.set( nested_changes );
 		},
 
 		teardown: function ( detach ) {
+			if ( ifBlock ) ifBlock.teardown( false );
 			nested.teardown( detach );
-			if ( ifBlock ) ifBlock.teardown( detach );
 			
 			if ( detach ) {
 				h1.parentNode.removeChild( h1 );
@@ -328,8 +318,8 @@ function renderMainFragment ( root, component ) {
 				text4.parentNode.removeChild( text4 );
 				p1.parentNode.removeChild( p1 );
 				text6.parentNode.removeChild( text6 );
+				div.parentNode.removeChild( div );
 				text7.parentNode.removeChild( text7 );
-				ifBlock_anchor.parentNode.removeChild( ifBlock_anchor );
 			}
 		}
 	};
@@ -337,7 +327,7 @@ function renderMainFragment ( root, component ) {
 
 function renderIfBlock_1 ( root, component ) {
 	var button = document.createElement( 'button' );
-	button.setAttribute( 'svelte-1089874807', '' );
+	button.setAttribute( 'svelte-3293511188', '' );
 	
 	function clickHandler ( event ) {
 		component.showAlert();
@@ -368,7 +358,7 @@ function renderIfBlock_1 ( root, component ) {
 
 function renderIfBlock_0 ( root, component ) {
 	var p = document.createElement( 'p' );
-	p.setAttribute( 'svelte-1089874807', '' );
+	p.setAttribute( 'svelte-3293511188', '' );
 	
 	p.appendChild( document.createTextNode( "loading..." ) );
 
@@ -499,7 +489,6 @@ function App ( options ) {
 	this.root = options.root;
 	this.yield = options.yield;
 
-	if ( !addedCss ) addCss();
 	this.__renderHooks = [];
 	
 	var mainFragment = renderMainFragment( state, this );
@@ -513,11 +502,23 @@ function App ( options ) {
 
 App.prototype = template.methods;
 
-window.app = new App({
-	target: document.querySelector( 'main' ),
-	data: {
-		page: 13
-	}
-});
+const match = /\/page\/(\d+)/.exec( window.location.pathname );
+
+const target = document.querySelector( 'main' );
+
+// simulate a loading delay before app becomes interactive
+setTimeout( () => {
+	// Right now, we need to clear the target element. This is obviously
+	// sub-optimal – we want to reuse the existing elements
+	target.innerHTML = '';
+
+	window.app = new App({
+		target,
+		data: {
+			page: +match[1],
+			loading: false
+		}
+	});
+}, 1000 );
 
 }());

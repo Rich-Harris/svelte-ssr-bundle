@@ -4,13 +4,15 @@
 
 <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-<Nested page='{{page}}'/>
+<div class='interactive'>
+	{{#if loading}}
+		<p>loading...</p>
+	{{else}}
+		<button on:click='showAlert()'>click me</button>
+	{{/if}}
+</div>
 
-{{#if loading}}
-	<p>loading...</p>
-{{else}}
-	<button on:click='showAlert()'>click me</button>
-{{/if}}
+<Nested page='{{page}}'/>
 
 <style>
 	h1 {
@@ -21,6 +23,26 @@
 
 	p {
 		max-width: 40em;
+		font-family: 'Helvetica Neue';
+	}
+
+	.interactive {
+		background-color: #eee;
+		height: 4em;
+		padding: 1em;
+		box-sizing: border-box;
+		text-align: center;
+		font-family: 'Helvetica Neue';
+		font-weight: 900;
+	}
+
+	.interactive p {
+		margin: 0;
+	}
+
+	button {
+		font-family: inherit;
+		font-size: inherit;
 	}
 </style>
 
@@ -30,7 +52,8 @@
 	export default {
 		data () {
 			return {
-				query: '???'
+				query: '???',
+				loading: true
 			};
 		},
 

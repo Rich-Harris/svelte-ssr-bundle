@@ -2,15 +2,17 @@ const http = require( 'http' );
 const path = require( 'path' );
 const fs = require( 'fs' );
 
-const app = require( './app.js' );
+const app = require( './build/app.js' );
 const template = fs.readFileSync( path.join( __dirname, 'templates/index.html' ), 'utf-8' );
 
 const server = http.createServer( ( req, res ) => {
 	const match = /\/page\/(\d+)/.exec( req.url );
 
 	if ( match ) {
-		const html = app.render({ page: match[1] });
-		res.end( html );
+		const html = app.render({ page: +match[1] });
+		const { css } = app.renderCss();
+
+		res.end( template.replace( '/* CSS */', css ).replace( '<!-- HTML -->', html ) );
 	}
 
 	else if ( req.url === '/' ) {
@@ -21,8 +23,13 @@ const server = http.createServer( ( req, res ) => {
 	}
 
 	else {
-		res.statusCode = 404;
-		res.end( 'not found' );
+		try {
+			const filename = path.resolve( __dirname, '../public', req.url.slice( 1 ) )
+			fs.createReadStream( filename ).pipe( res );
+		} catch ( err ) {
+			res.statusCode = 404;
+			res.end( 'not found' );
+		}
 	}
 });
 
