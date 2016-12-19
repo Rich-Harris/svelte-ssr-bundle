@@ -23,13 +23,13 @@ const server = http.createServer( ( req, res ) => {
 	}
 
 	else {
-		try {
-			const filename = path.resolve( __dirname, '../public', req.url.slice( 1 ) )
-			fs.createReadStream( filename ).pipe( res );
-		} catch ( err ) {
+		const filename = path.resolve( __dirname, '../public', req.url.slice( 1 ) )
+		const rs = fs.createReadStream( filename );
+		rs.on( 'error', err => {
 			res.statusCode = 404;
 			res.end( 'not found' );
-		}
+		});
+		rs.pipe( res );
 	}
 });
 
