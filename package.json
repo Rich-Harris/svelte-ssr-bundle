@@ -7,6 +7,7 @@
     "start": "npm run build:server && npm run build:client && npm run serve",
     "build:server": "rollup -c rollup.config.ssr.js",
     "build:client": "rollup -c rollup.config.js",
-    "serve": "node server/index.js"
+    "serve": "node server/index.js",
+    "test": "npm run build:client && npm run build:server"
   }
 }
