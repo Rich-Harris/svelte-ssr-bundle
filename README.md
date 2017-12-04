@@ -16,9 +16,27 @@ First, we bundle `shared/App.html`. This gives us a module (`server/build/app.js
 
 Then, we bundle `client/app.js`, which imports `shared/App.html`. By initialising the client-side app with different data than the server uses, we can (for example) indicate that the app is now interactive, by rendering stuff differently. By setting `hydratable: true` in `rollup.config.js`, we let Svelte reuse the server-rendered markup.
 
+```javascript
+plugins: [
+    svelte({
+        hydratable: true,
+        })
+    ]
+```
+
+
+In `client/app.js` we tell Svelte that it should hydrate by passing `hydrate: true` to the app's constructor:
+
+```javascript
+    window.app = new App({
+        target,
+        hydrate: true
+        });        
+```
+
 In this example, the server renders "loading..." which is replaced by a clickable button once Javascript starts controlling the DOM.
 
 
 ## Notes
 
-* There's no client-side routing in this app. Would be easy enough to add in an ad-hoc way, but it might be nice to have a proper routing story, or maybe even a next.js-like framework
+* [svelte-routing](https://github.com/EmilTholin/svelte-routing) is a router with Svelte SSR support
