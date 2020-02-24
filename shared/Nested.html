@@ -1,10 +1,13 @@
+<script>
+	let page = 1;
+</script>
 <div class='pagination'>
 	<p>this is a nested component</p>
-	{{#if page > 1}}
-		<a class='prev' href='/page/{{page - 1}}'>page {{page - 1}}</a>
-	{{/if}}
+	{#if page > 1}
+		<a class='prev' href='/page/{page - 1}'>page {page - 1}</a>
+	{/if}
 
-	<a class='next' href='/page/{{page + 1}}'>page {{page + 1}}</a>
+	<a class='next' href='/page/{page + 1}'>page {page + 1}</a>
 </div>
 
 <style>
