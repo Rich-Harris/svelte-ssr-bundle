@@ -2,19 +2,16 @@ const http = require( 'http' );
 const path = require( 'path' );
 const fs = require( 'fs' );
 
-global.internal = require( 'svelte/internal' );
-
-const app = require( './build/app.js' );
+const App = require( './build/app.js' );
 const template = fs.readFileSync( path.join( __dirname, 'templates/index.html' ), 'utf-8' );
 
 const server = http.createServer( ( req, res ) => {
 	const match = /\/page\/(\d+)/.exec( req.url );
 
 	if ( match ) {
-		const html = app.render({ page: +match[1] });
-		const { css } = html;
+		const { html, css, head } = App.render({ page: +match[1] });
 
-		res.end( template.replace( '/* CSS */', css ).replace( '<!-- HTML -->', html ) );
+		res.end( template.replace( '/* CSS */', css.code ).replace( '<!-- HTML -->', html ) );
 	}
 
 	else if ( req.url === '/' ) {
