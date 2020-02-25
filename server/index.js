@@ -2,6 +2,8 @@ const http = require( 'http' );
 const path = require( 'path' );
 const fs = require( 'fs' );
 
+global.internal = require( 'svelte/internal' );
+
 const app = require( './build/app.js' );
 const template = fs.readFileSync( path.join( __dirname, 'templates/index.html' ), 'utf-8' );
 
@@ -10,7 +12,7 @@ const server = http.createServer( ( req, res ) => {
 
 	if ( match ) {
 		const html = app.render({ page: +match[1] });
-		const { css } = app.renderCss();
+		const { css } = html;
 
 		res.end( template.replace( '/* CSS */', css ).replace( '<!-- HTML -->', html ) );
 	}

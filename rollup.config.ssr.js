@@ -8,7 +8,7 @@ export default {
 	},
 	plugins: [
 		svelte({
-			generate: 'ssr'
+			generate: 'ssr',
 		})
 	]
 };

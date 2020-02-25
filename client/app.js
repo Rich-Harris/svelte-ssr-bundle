@@ -12,6 +12,7 @@ setTimeout( () => {
 
 	window.app = new App({
 		target,
+		hydrate: true,
 		data: {
 			page: +match[1],
 			loading: false
