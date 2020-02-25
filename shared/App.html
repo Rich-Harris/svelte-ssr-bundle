@@ -1,18 +1,14 @@
-<h1>Page {{page}}</h1>
+<script>
+	import Nested from './Nested.html';
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+	let query = '???';
+	let loading = false;
+	let page = 1;
 
-<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-<div class='interactive'>
-	{{#if loading}}
-		<p>loading...</p>
-	{{else}}
-		<button on:click='showAlert()'>click me</button>
-	{{/if}}
-</div>
-
-<Nested page='{{page}}'/>
+	function showAlert () {
+		alert( 'the page is now interactive' );
+	}
+</script>
 
 <style>
 	h1 {
@@ -46,25 +42,18 @@
 	}
 </style>
 
-<script>
-	import Nested from './Nested.html';
+<h1>Page {page}</h1>
 
-	export default {
-		data () {
-			return {
-				query: '???',
-				loading: true
-			};
-		},
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
-		components: {
-			Nested
-		},
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-		methods: {
-			showAlert () {
-				alert( 'the page is now interactive' );
-			}
-		}
-	}
-</script>
+<div class='interactive'>
+	{#if loading}
+		<p>loading...</p>
+	{:else}
+		<button on:click={showAlert()}>click me</button>
+	{/if}
+</div>
+
+<Nested page={page}/>

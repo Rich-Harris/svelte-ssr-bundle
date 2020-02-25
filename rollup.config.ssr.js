@@ -1,12 +1,20 @@
+import internal from 'svelte/internal';
+import resolve from '@rollup/plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 
+global.internal = internal;
+
 export default {
-	entry: 'shared/App.html',
-	dest: 'server/build/app.js',
-	format: 'cjs',
+	input: 'shared/App.html',
+	output: {
+		file: 'server/build/app.js',
+		format: 'cjs'
+	},
 	plugins: [
+		resolve(),
 		svelte({
-			generate: 'ssr'
+			generate: 'ssr',
 		})
-	]
+	],
+	external: ['internal']
 };
